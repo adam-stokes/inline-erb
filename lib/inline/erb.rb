@@ -28,7 +28,7 @@ module Inline
     #     __END__
     #     @@ vhost.conf
     #     server { name <%= server_name %> }
-    def inline_template(name, **context)
+    def render(name, **context)
       templates = {}
       begin
         app, data = File.read(caller.first.split(":").first).split("__END__", 2)
@@ -51,7 +51,7 @@ module Inline
         TemplateRenderer.render(templates[name], context)
       end
     end
-    module_function :inline_template
+    module_function :render
 
   end
 end

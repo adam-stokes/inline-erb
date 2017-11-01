@@ -21,15 +21,14 @@ Or install it yourself as:
 ## Usage
 
 ```ruby
-require 'inline-erb'
+require 'inline/erb'
 
-inline_template 'znc.conf',
-                '/var/lib/znc/configs/znc.conf',
-                port: config('port'),
-                admin_user: config('admin_user'),
-                admin_password: config('admin_password'),
-                admin_password_salt: admin_password_salt,
-                admin_password_hash: admin_password_hash
+Inline::Erb.render 'znc.conf',
+                   port: config('port'),
+                   admin_user: config('admin_user'),
+                   admin_password: config('admin_password'),
+                   admin_password_salt: admin_password_salt,
+                   admin_password_hash: admin_password_hash
 
 __END__
 

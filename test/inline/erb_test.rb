@@ -6,7 +6,7 @@ class Inline::ErbTest < Minitest::Test
   end
 
   def test_render_context
-    tpl = ::Inline::Erb::inline_template('tpl_test', name: 'john')
+    tpl = Inline::Erb.render('tpl_test', name: 'john')
     assert_match tpl.strip(), 'Hi, john'
   end
 end
