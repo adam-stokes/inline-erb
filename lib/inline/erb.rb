@@ -15,22 +15,20 @@ module Inline
       end
     end
 
-    # Reads from a embedded templat
+    # Reads from a embedded template
     #
     # @param src String - The data found after __END__
-    # @param dst String - Save location
     # @param context Hash - variables to pass into template
-    # @return Boolean
+    # @return Rendered Template
     #
     # @example
     #     inline_template('vhost.conf',
-    #                     '/etc/nginx/sites-enabled/default')
     #                     server_name: "example.com")
     #
     #     __END__
     #     @@ vhost.conf
     #     server { name <%= server_name %> }
-    def inline_template(name, dst, **context)
+    def inline_template(name, **context)
       templates = {}
       begin
         app, data = File.read(caller.first.split(":").first).split("__END__", 2)
@@ -50,13 +48,7 @@ module Inline
           end
         end
 
-        begin
-          rendered = TemplateRenderer.render(templates[name], context)
-        rescue
-          puts "Unable to load inline template #{name}"
-          exit 1
-        end
-        File.write(dst, rendered)
+        TemplateRenderer.render(templates[name], context)
       end
     end
     module_function :inline_template

@@ -5,7 +5,14 @@ class Inline::ErbTest < Minitest::Test
     refute_nil ::Inline::Erb::VERSION
   end
 
-  def test_it_does_something_useful
-    assert false
+  def test_render_context
+    tpl = ::Inline::Erb::inline_template('tpl_test', name: 'john')
+    assert_match tpl.strip(), 'Hi, john'
   end
 end
+
+__END__
+
+@@ tpl_test
+
+Hi, <%= name %>
